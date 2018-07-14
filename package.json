@@ -1,0 +1,29 @@
+{
+  "name": "violet-trailhead",
+  "description": "Game Night - Backed By Salesforce",
+  "license": "BSD-3-Clause",
+  "version": "0.0.1",
+  "main": "server.js",
+  "keywords": [
+    "voice",
+    "trailhead",
+    "amazon",
+    "alexa",
+    "echo",
+    "skills"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vineet-sinha/violet-trailhead.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vineet-sinha/violet-trailhead/issues"
+  },
+  "homepage": "https://github.com/vineet-sinha/violet-trailhead#readme",
+  "dependencies": {
+    "violet": "^0.11.2"
+  }
+}
