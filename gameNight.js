@@ -3,7 +3,7 @@ var violet = require('violet').script();
 var violetStoreSF = require('violet/lib/violetStoreSF')(violet);
 
 violetStoreSF.store.propOfInterest = {
-  'Game_night': ['userid', 'day', 'time', 'duration', 'players', 'theme', 'snack']
+  'Game_night': ['userid', 'day', 'time', 'duration', 'game', 'food']
 }
 
 violet.addInputTypes({
@@ -13,9 +13,8 @@ violet.addInputTypes({
   },
   "time": "number",
   "duration": "number",
-  "players": "phrase",
-  "theme": "phrase",
-  "snack": "phrase",
+  "game": "phrase",
+  "food": "phrase",
 });
 
 var app = {
@@ -24,7 +23,7 @@ var app = {
       if (results.length == 0) {
         response.say(`Sorry, I did not have anything scheduled`);
       } else {
-        response.say(`I had a game night scheduled on ${results[0].day} at ${results[0].time} which had the theme ${results[0].theme}`);
+        response.say(`I had a game night scheduled on ${results[0].day} at ${results[0].time} where you played ${results[0].game}`);
       }
     });
   },
@@ -33,7 +32,7 @@ var app = {
       if (results.length == 0) {
         response.say(`Sorry, I do not have anything scheduled`);
       } else {
-        response.say(`I have a game night scheduled on ${results[0].day} at ${results[0].time} and has the theme ${results[0].theme}`);
+        response.say(`I have a game night scheduled on ${results[0].day} at ${results[0].time} to play ${results[0].game}`);
       }
     });
   },
@@ -42,9 +41,8 @@ var app = {
       userid: response.get('userId'),
       time: response.get('time'),
       duration: response.get('duration'),
-      players: response.get('players'),
-      theme: response.get('theme'),
-      snack: response.get('snack')
+      game: response.get('game'),
+      food: response.get('food')
     });
   }
 }
@@ -54,6 +52,7 @@ violet.addFlowScript(`
     <expecting>What can you do</expecting>
     <say>I can help you with planning Game Nights</say>
   </choice>
+
   <choice id="list">
     <expecting>What game nights have already been planned</expecting>
     <say>Sure</say>
@@ -69,6 +68,7 @@ violet.addFlowScript(`
       </choice>
     </decision>
   </choice>
+
   <dialog id="create" elicit="[[dialog.nextReqdParam()]]">
     <expecting>I'm looking to organize a game night {this [[day]]|}</expecting>
     <item name="day">
@@ -83,16 +83,12 @@ violet.addFlowScript(`
       <prompt>How long would you like it to be?</prompt>
       <expecting>[[duration]] hours</expecting>
     </item>
-    <item name="players">
-      <prompt>Who are the players you would like to invite today</prompt>
-      <expecting>[[players]]</expecting>
+    <item name="game">
+      <prompt>What would you like the main game to be</prompt>
+      <expecting>[[game]]</expecting>
     </item>
-    <item name="theme">
-      <prompt>What would you like the theme of the night to be</prompt>
-      <expecting>[[theme]]</expecting>
-    </item>
-    <item name="snacks">
-      <prompt>Do you want any snacks?</prompt>
+    <item name="food">
+      <prompt>Do you want snacks, lunch or dinner?</prompt>
       <expecting>{everyone wants|} [[snacks]]</expecting>
     </item>
     <if value="[[response.dialog.hasReqdParams()]]">
@@ -101,9 +97,11 @@ violet.addFlowScript(`
       </resolve>
     </if>
   </dialog>
+
   <choice id="update">
     <expecting>Update</expecting>
     <expecting>Delete</expecting>
     <say>...</say>
   </choice>
+  
 </app>`, {app});
