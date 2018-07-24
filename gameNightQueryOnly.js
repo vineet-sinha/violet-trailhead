@@ -35,7 +35,6 @@ var app = {
       }
     });
   },
-  }
 }
 violet.addFlowScript(`
 <app>
