@@ -1,4 +1,3 @@
-
 var violet = require('violet').script();
 var violetStoreSF = require('violet/lib/violetStoreSF')(violet);
 
@@ -36,15 +35,6 @@ var app = {
       }
     });
   },
-  createGameNight: (response)=>{
-    return response.store('Game_night', {
-      userid: response.get('userId'),
-      time: response.get('time'),
-      duration: response.get('duration'),
-      game: response.get('game'),
-      food: response.get('food')
-    });
-  }
 }
 violet.addFlowScript(`
 <app>
@@ -52,7 +42,6 @@ violet.addFlowScript(`
     <expecting>What can you do</expecting>
     <say>I can help you with planning Game Nights</say>
   </choice>
-
   <choice id="list">
     <expecting>What game nights have already been planned</expecting>
     <say>Sure</say>
@@ -68,36 +57,6 @@ violet.addFlowScript(`
       </choice>
     </decision>
   </choice>
-
-  <dialog id="create" elicit="[[dialog.nextReqdParam()]]">
-    <expecting>I'm looking to organize a game night {this [[day]]|}</expecting>
-    <item name="day">
-      <prompt>What day would you like it to be on?</prompt>
-      <expecting>{I'd like it to be]} this [[day]]</expecting>
-    </item>
-    <item name="time">
-      <prompt>When would you like to start it?</prompt>
-      <expecting>[[time]] pm</expecting>
-    </item>
-    <item name="duration">
-      <prompt>How long would you like it to be?</prompt>
-      <expecting>[[duration]] hours</expecting>
-    </item>
-    <item name="game">
-      <prompt>What would you like the main game to be</prompt>
-      <expecting>[[game]]</expecting>
-    </item>
-    <item name="food">
-      <prompt>Do you want snacks, lunch or dinner?</prompt>
-      <expecting>{everyone wants|} [[snacks]]</expecting>
-    </item>
-    <if value="[[response.dialog.hasReqdParams()]]">
-      <resolve value="[[app.createGameNight(response)]]">
-        <say>Great, you are all set</say>
-      </resolve>
-    </if>
-  </dialog>
-
   <choice id="update">
     <expecting>Update</expecting>
     <expecting>Delete</expecting>
