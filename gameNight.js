@@ -62,12 +62,6 @@ var calcDateInFuture = (dayOfWeekStr, timeInPMStr)=>{
 // Hook up the Script
 var app = {
   getPastGameNights: (response)=>{
-    // generated:
-    // SELECT CreatedDate, Id, duration__c, food__c, game__c, start_time__c FROM Game_night__c WHERE start_time__c < TODAY  limit 100
-    //
-    // ideal:
-    // SELECT Id, Duration__c, Food__c, Game__c, Name, Start_Time__c FROM Game_Night__c WHERE Start_Time__c < TODAY
-
     return response.load({objName: 'Game_night', filter: 'start_time__c < TODAY'}).then((results)=>{
       if (results.length == 0) {
         response.say(`Sorry, I did not have anything scheduled`);
@@ -78,10 +72,6 @@ var app = {
     });
   },
   getUpcomingGameNights: (response)=>{
-    // generated:
-    // SELECT CreatedDate, Id, duration__c, food__c, game__c, start_time__c FROM Game_night__c WHERE start_time__c >= TODAY  limit 100
-    // ideal:
-    // SELECT Id, Duration__c, Food__c, Game__c, Name, Start_Time__c FROM Game_Night__c WHERE Start_Time__c >= TODAY
     return response.load({objName: 'Game_night', filter: 'start_time__c >= TODAY'}).then((results)=>{
       if (results.length == 0) {
         response.say(`Sorry, I do not have anything scheduled`);
