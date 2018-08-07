@@ -85,6 +85,7 @@ var app = {
   createGameNight: (response)=>{
     var dt = calcDateInFuture(response.get('day'), response.get('time'));
     return response.store('Game_night', {
+      'name*': 'Game Night created by Violet',
       start_time: dt,
       duration: parseInt(response.get('duration')),
       game: response.get('game'),
