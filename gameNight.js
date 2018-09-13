@@ -135,7 +135,7 @@ violet.addFlowScript(`
     <expecting>I'm looking to organize a game night {this [[day]]|}</expecting>
     <item name="day" required>
       <ask>What day would you like it to be on?</ask>
-      <expecting>{I'd like it to be]} this [[day]]</expecting>
+      <expecting>{I'd like it to be|} this [[day]]</expecting>
     </item>
     <item name="time" required>
       <ask>When would you like to start it?</ask>
@@ -151,7 +151,7 @@ violet.addFlowScript(`
     </item>
     <item name="food" required>
       <ask>Do you want snacks, lunch or dinner?</ask>
-      <expecting>{everyone wants|} [[food]]</expecting>
+      <expecting>{everyone wants|I would like} [[food]]</expecting>
     </item>
     <resolve value="app.createGameNight(response)">
       <say>Great, you are all set</say>
