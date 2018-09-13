@@ -116,7 +116,7 @@ violet.addFlowScript(`
   </choice>
 
   <choice id="list">
-    <expecting>What game nights have already been planned</expecting>
+    <expecting>What {game nights have|has} already been planned</expecting>
     <say>Sure</say>
     <decision>
       <prompt>Would you like to hear of game nights that are upcoming or in the past</prompt>
@@ -132,7 +132,7 @@ violet.addFlowScript(`
   </choice>
 
   <dialog id="create" elicit="dialog.nextReqdParam()">
-    <expecting>I'm looking to organize a game night {this [[day]]|}</expecting>
+    <expecting>{I'm looking to|} organize a game night {this [[day]]|}</expecting>
     <item name="day" required>
       <ask>What day would you like it to be on?</ask>
       <expecting>{I'd like it to be|} this [[day]]</expecting>
