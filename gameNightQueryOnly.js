@@ -43,7 +43,7 @@ violet.addFlowScript(`
     <say>I can help you with planning Game Nights</say>
   </choice>
   <choice id="list">
-    <expecting>What game nights have already been planned</expecting>
+    <expecting>What {game nights have|has} already been planned</expecting>
     <say>Sure</say>
     <decision>
       <prompt>Would you like to hear of game nights that are upcoming or in the past</prompt>
@@ -62,5 +62,5 @@ violet.addFlowScript(`
     <expecting>Delete</expecting>
     <say>...</say>
   </choice>
-  
+
 </app>`, {app});
