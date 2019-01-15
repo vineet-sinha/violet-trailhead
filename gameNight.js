@@ -147,7 +147,7 @@ violet.addFlowScript(`
     </item>
     <item name="game" required>
       <ask>What would you like the main game to be</ask>
-      <expecting>[[game]]</expecting>
+      <expecting>{would like to play|how about} [[game]]</expecting>
     </item>
     <item name="food" required>
       <ask>Do you want snacks, lunch or dinner?</ask>
