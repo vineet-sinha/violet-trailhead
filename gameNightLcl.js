@@ -1,57 +1,7 @@
 
 var violet = require('violet').script({invocationName:'game night'});
+var utils = require('./dateUtils.js');
 
-///////////////////////////////////
-// Integration and Business Logic
-///////////////////////////////////
-
-// Utilities
-var monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-var weekDays = {
-  sunday: 0,
-  monday: 1,
-  tuesday: 2,
-  wednesday: 3,
-  thursday: 4,
-  friday: 5,
-  saturday: 6
-}
-var getDay = (dateTime)=>{
-  return `${dateTime.getDate()} ${monthNames[dateTime.getMonth()]}`;
-};
-var getTime = (dateTime)=>{
-  var hh = dateTime.getHours();
-  var mm = dateTime.getMinutes();
-  var ampm = 'am';
-  if (hh>12) {
-    hh-=12;
-    ampm = 'pm';
-  }
-  if (mm==0) {
-    mm = '';
-  } else if (mm<10) {
-    mm = 'Oh ' + mm; // Zero is pronounced as Oh when saying the time
-  }
-  return `${hh} ${mm} ${ampm}`;
-};
-var calcDateInFuture = (dayOfWeekStr, timeInPMStr)=>{
-  var dt = new Date();
-
-  var dayOfWeek = weekDays[dayOfWeekStr.toLowerCase()]
-  if (dayOfWeek < dt.getDay()) dayOfWeek += 7;
-
-  dt.setDate(dt.getDate() + dayOfWeek - dt.getDay());
-
-  dt.setHours(parseInt(timeInPMStr) + 12);
-  dt.setMinutes(0);
-  dt.setSeconds(0);
-  dt.setMilliseconds(0);
-
-  return dt;
-};
 
 // An Extremely Simple Model
 var model = {
@@ -67,7 +17,7 @@ var app = {
       response.say(`Sorry, I did not have anything scheduled`);
     } else {
       var dt = results[0].startTime;
-      response.say(`I had a game night scheduled on ${getDay(dt)} at ${getTime(dt)} where ${results[0].game}  was played`);
+      response.say(`I had a game night scheduled on ${utils.getDayAndMonth(dt)} at ${utils.getTime(dt)} where ${results[0].game}  was played`);
     }
   },
   getUpcomingGameNights: (response)=>{
@@ -76,12 +26,12 @@ var app = {
       response.say(`Sorry, I do not have anything scheduled`);
     } else {
       var dt = results[0].startTime;
-      response.say(`I have a game night scheduled on ${getDay(dt)} at ${getTime(dt)} to play ${results[0].game}`);
+      response.say(`I have a game night scheduled on ${utils.getDayAndMonth(dt)} at ${utils.getTime(dt)} to play ${results[0].game}`);
     }
   },
   createGameNight: (response)=>{
     model.futureGameNights.push({
-      startTime: calcDateInFuture(response.get('day'), response.get('time')),
+      startTime: utils.calcDateInFuture(response.get('day'), response.get('time')),
       duration: parseInt(response.get('duration')),
       game: response.get('game'),
       food: response.get('food')
