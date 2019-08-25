@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/vineet-sinha/violet-trailhead#readme",
   "dependencies": {
-    "violet": "^0.16.0"
+    "violet": "^1.0.1"
   }
 }
