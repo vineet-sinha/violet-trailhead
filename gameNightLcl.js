@@ -57,15 +57,16 @@ violet.addInputTypes({
 violet.addFlowScript(`
 <app>
   <choice id="launch">
-    <expecting>What can you do</expecting>
+    <expecting>What can you do?</expecting>
     <say>I can help you with planning Game Nights</say>
   </choice>
 
   <choice id="list">
-    <expecting>What {game nights have|has} already been planned</expecting>
-    <say>Sure</say>
+    <expecting>What {game nights have|has} already been planned?</expecting>
+    <expecting>Any plans?</expecting>
+    <say>Let me see</say>
     <decision>
-      <prompt>Would you like to hear of game nights that are upcoming or in the past</prompt>
+      <ask>Would you like to hear of game nights that are upcoming or in the past</ask>
       <choice>
         <expecting>{In the|} past</expecting>
         <resolve value="app.getPastGameNights(response)"/>
@@ -78,7 +79,7 @@ violet.addFlowScript(`
   </choice>
 
   <dialog id="create" elicit="dialog.nextReqdParam()">
-    <expecting>{I'm looking to|} organize a game night {this [[day]]|}</expecting>
+    <expecting>{I'm looking to|} organize a game night {this [[day]]|}?</expecting>
     <item name="day" required>
       <ask>What day would you like it to be on?</ask>
       <expecting>{I'd like it to be|} this [[day]]</expecting>
